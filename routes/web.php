@@ -5,8 +5,20 @@ use App\Http\Controllers\Panel\AuthController;
 use App\Http\Controllers\Panel\DashboardController;
 use App\Http\Controllers\Panel\PanelController;
 
-// Ana yönlendirme
-Route::get('/', fn() => redirect()->route('panel.login'));
+// Ana sayfa — Müşteri PWA
+Route::get('/', function () {
+    return response()->file(public_path('pwa/index.html'));
+});
+
+// PWA Service Worker (root'tan erişilmeli)
+Route::get('/sw.js', function () {
+    return response()->file(public_path('pwa/sw.js'), ['Content-Type' => 'application/javascript']);
+});
+
+// PWA manifest
+Route::get('/manifest.json', function () {
+    return response()->file(public_path('pwa/manifest.json'), ['Content-Type' => 'application/manifest+json']);
+});
 
 // Müşteri PWA (dükkan sayfası QR kodundan açılır)
 // PWA ayrı statik sunucuda olduğunda bu route kaldırılabilir

@@ -33,11 +33,10 @@ class OtpController extends Controller
             ]
         );
 
-        // TODO: Gerçek SMS gönderimi (NetGSM entegrasyonu FAZ 4'te)
-        // Geliştirme ortamında OTP'yi response'a ekle
+        // SMS entegrasyonu hazır olana kadar OTP response'da dönüyor
         return response()->json([
             'success' => true,
-            'data' => config('app.env') === 'local' ? ['otp' => $otp] : null,
+            'data' => ['otp' => $otp],
             'message' => 'OTP kodu gönderildi.',
         ]);
     }
